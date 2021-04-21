@@ -34,47 +34,26 @@
 
 # Steps
 
-1. [Before you begin](#1-before-you-begin)
-2. [Create IBM Cloud services](#2-create-ibm-cloud-services)
+1. [Prerequisites](#1-before-you-begin)
+2. [IBM Cloud services](#2-create-ibm-cloud-services)
 3. [Building and Running](#3-building-and-running)
 
-## 1. Before You Begin
+## 1. Prerequisites
 
 * [IBM Cloud Account](http://ibm.biz/Bdimr6)
 * [Unity](https://unity3d.com/get-unity/download)
 
-## 2. Create IBM Cloud services
-
-On your local machine:
-1. `git clone https://github.com/IBM/Watson-Unity-ARKit.git`
-2. `cd Watson-Unity-ARKit`
+## 2. IBM Cloud services
 
 In [IBM Cloud](https://cloud.ibm.com/):
 
-1. Create a [Speech-To-Text](https://cloud.ibm.com/catalog/speech-to-text/) service instance.
-2. Create a [Text-to-Speech](https://cloud.ibm.com/catalog/text-to-speech/) service instance.
-3. Create an [Assistant](https://cloud.ibm.com/catalog/services/conversation/) service instance.
-4. Once you see the services in the Dashboard, select the Assistant service you created and click the `Launch Tool`.
-    !["Launch Tool Button"](doc/source/images/workspace_launcher2.png?raw=true)
-5. After logging into the Assistant Tool, click `Create a Skill`.
-    !["Create a Skill Button"](doc/source/images/create_a_skill.png?raw=true)
-6. Click `Create skill` button.
-    !["Create skill button](doc/source/images/create_skill.png?raw=true)
-7. Click "Import skill".
-8. Import the Assistant [`voiceActivatedMotionSimple.json`](data/voiceActivatedMotionSimple.json) file located in your clone of this repository.
-9. Once the skill has been created, we'll need to add it to an Assistant. If you have opend your skill, back out of it. Click `Assistants`.
-10. Click `Create Assistant`.
-11. Name your assistant, click `Create assistant`.
-12. Click `Add dialog skill` to add the skill you just imported to this Assistant.
-13. Click the `...` menu in the top and click "Settings" to see the Assistant Settings.
-    !["Assistant Skills menu"](doc/source/images/assistant_settings.png?raw=true)
-14. Click `API Details` and find your Assistant Id. You will need this in the next section.
+1. [Speech-To-Text](https://cloud.ibm.com/catalog/speech-to-text/) service instance.
+2. [Text-to-Speech](https://cloud.ibm.com/catalog/text-to-speech/) service instance.
+3. [Assistant](https://cloud.ibm.com/catalog/services/conversation/) service instance.
 
 ## 3. Building and Running
 
 > Note: This has been compiled and tested using Unity 2018.3.0f2 and Watson SDK for Unity 3.1.0 (2019-04-09) & Unity Core SDK 0.2.0 (2019-04-09).
-
-> Note: If you are in *any* IBM Cloud region other than US-South/Dallas you *must* use Unity 2018.2 or higher. This is because Unity 2018.2 or higher is needed for TLS 1.2, which is the only TLS version available in all regions other than US-South.
 
 The directories for unity-sdk and unity-sdk-core are blank within the Assets directory, placeholders for where the SDKs should be. Either delete these blank directories or move the contents of the SDKs into the directories after the following commands.
 
