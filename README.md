@@ -24,16 +24,10 @@
 * Watson Text-to-Speech converts the text to audio and returns it to the running application on the phone.
 * The application plays the audio response and waits for the next voice command.
 
-## Included components
+## Description
+It is the year 2020 and students are experiencing a new way of life when it comes to getting an education. Students are realizing they need to adopt a proactive and self-service mindset in to fulfill their academic needs. An intelligent chatbot that helps students find and access learning content supports this new self-service model. This pattern shows users how to build a self-service chatbot not only for education, but also for any other industries where users need to find information quickly and easily.
 
-* [IBM Watson Assistant](https://www.ibm.com/watson/developercloud/conversation.html): Create a chatbot with a program that conducts a conversation via auditory or textual methods.
-* [IBM Watson Speech-to-Text](https://www.ibm.com/watson/developercloud/speech-to-text.html): Converts audio voice into written text.
-* [IBM Watson Text-to-Speech](https://www.ibm.com/watson/developercloud/speech-to-text.html): Converts written text into audio.
-
-## Featured technologies
-
-* [Unity](https://unity3d.com/): A cross-platform game engine used to develop video games for PC, consoles, mobile devices and websites.
-* [AR Foundation](https://docs.unity3d.com/Packages/com.unity.xr.arfoundation@1.0/manual/index.html): A Unity package for AR functionality to create augmented reality experiences.
+Using Watson Assistant, this pattern defines a dialog that a student and a course provider might experience as a student searches for learning content. Students can input grade-level and academic topics question, and the chatbot responds with course recommendations and learning content links. The conversation responses are further enhanced by using Watson Discovery and the Watson Assistant Search skill. Natural Language Understanding (NLU) is introduced in this pattern to complement Watson Discovery's accuracy by extracting custom fields for entities, concepts, and categories.
 
 # Steps
 
@@ -41,18 +35,99 @@
 2. [IBM Cloud services](#2-create-ibm-cloud-services)
 3. [Building and Running](#3-building-and-running)
 
-## 1. Prerequisites
+## 1. Pre-requisites
 
 * [IBM Cloud Account](http://ibm.biz/Bdimr6)
 * [Unity](https://unity3d.com/get-unity/download)
 
+
 ## 2. IBM Cloud services
 
-In [IBM Cloud](https://cloud.ibm.com/):
+[IBM Cloud](https://cloud.ibm.com/):
 
-1. [Speech-To-Text](https://cloud.ibm.com/catalog/speech-to-text/) service instance.
-2. [Text-to-Speech](https://cloud.ibm.com/catalog/text-to-speech/) service instance.
-3. [Assistant](https://cloud.ibm.com/catalog/services/conversation/) service instance.
+1. [IBM Watson Speech-To-Text](https://cloud.ibm.com/catalog/speech-to-text/) service instance.
+2. [IBM Watson Text-to-Speech](https://cloud.ibm.com/catalog/text-to-speech/) service instance.
+3. [IBM Watson Assistant](https://cloud.ibm.com/catalog/services/conversation/) service instance.
+4. [IBM Watson Natural Language Understanding (NLU) service](https://cloud.ibm.com/docs/services/natural-language-understanding?topic=natural-language-understanding-getting-started#getting-started)
+5. [IBM Watson Discovery](https://cloud.ibm.com/catalog/services/discovery)
+
+> **NOTE**: use the `Plus` offering of Watson Assistant. You have access to a 30 day trial.
+
+### What is an Assistant Search Skill?
+
+An Assistant search skill is a mechanism that allows you to directly query a Watson Discovery collection from your Assistant dialog. A search skill is triggered when the dialog reaches a node that has a search skill enabled. The user query is then passed to the Watson Discovery collection via the search skill, and the results are returned to the dialog for display to the user. Customizing how your documents are indexed into Discovery improves the answers returned from queries and what your users experience.
+
+Click [here](https://cloud.ibm.com/docs/assistant-data?topic=assistant-data-skill-search-add) for more information about the Watson Assistant search skill.
+
+### Why Natural Language Understanding (NLU)?
+
+NLU performs text analysis to extract metadata such as concepts, entities, keywords, and other types of categories of words. Data sets are then enriched with NLU-detected entities, keywords, and concepts (for example, course names). Although Discovery provides great results, sometimes a developer finds that the results are not as relevant as they might be and that there is room for improvement. Discovery is built for "long-tail" use cases where the use case has many varied questions and results that you can't easily anticipate or optimize. Additionally, if the corpus of documents is relatively small (less than 1000), Discovery doesn't have enough information to distinguish important terms and unimportant terms. Discovery can work with a corpus this small - but it is less effective because it has less information about the relative frequency of terms in the domain. 
+
+
+## Flow
+
+<img src="https://github.com/IBM/Education-SelfService-AI-Chatbot/raw/master/images/chatbot-for-student-self-service-flow.png" alt="Architecture" /> 
+
+1. Execute Python program to run data set through Natural Language Understanding to extract the meta-data (e.g. course name, desciption,etc) and enrich the `.csv` file
+2. Run Node program to convert `.csv` to `.json` files (required for the Discovery collection)
+3. Programmatially upload .json files into the Discovery Collection
+4. The user interacts through the chatbot via a Watson Assistant Dialog Skill
+5. When the student asks about course information, a search query is issued to the Watson Discovery service through a Watson Assistant search skill. Discovery returns the responses to the dialog
+
+## Featured technologies
+
+* [Node.js Versions >= 6](https://nodejs.org/): An asynchronous event driven JavaScript runtime, designed to build scalable applications.
+* [Python V3.5+](https://www.python.org/downloads/): Download the latest version of Python
+* [Pandas](https://pandas.pydata.org/): pandas is a fast, powerful, flexible, and easy-to-use open source data analysis and manipulation tool built on top of the Python programming language. 
+
+
+## 3. Configure Watson NLU
+
+NLU enriches Discovery by creating the addition of metadata tags to your data sets.  In other words, includes terms that overlap with words that users might actually provide in their queries.
+
+- The following instruction has the developer run the [`.csv`](./data/discovery-nlu/input) files through NLU and extract entities and concepts. Do this by running the python program:  
+```bash
+cd src
+pip install watson-developer-cloud==1.5
+pip install --upgrade ibm-watson
+pip install pandas
+sudo pip3 install -U python-dotenv
+python NLUEntityExtraction.py
+```
+
+
+## 4. Configure Watson Discovery
+
+Watson Discovery uses AI search technology to retrieve answers to questions.  It contains language processessing capabilities and can be trained on both structured and unstructured data. The data that Discovery is trained on is contained within what is called a `Collection` (aka Database).  You can learn more about Watson Discovery [here](https://www.ibm.com/cloud/watson-discovery?p1=Search&p4=p50290480283&p5=b&cm_mmc=Search_Google-_-1S_1S-_-WW_NA-_-%2Bwatson%20%2Bdiscovery_b&cm_mmca7=71700000060917569&cm_mmca8=aud-852729272088:kwd-302050444300&cm_mmca9=CjwKCAjw7-P1BRA2EiwAXoPWA2T6YMa5zifdlmrwND-h_LlXb1JGHM0lpIVgWxjr-a12Zs9isU4OuhoC0_oQAvD_BwE&cm_mmca10=405891754210&cm_mmca11=b&gclid=CjwKCAjw7-P1BRA2EiwAXoPWA2T6YMa5zifdlmrwND-h_LlXb1JGHM0lpIVgWxjr-a12Zs9isU4OuhoC0_oQAvD_BwE&gclsrc=aw.ds)
+
+### Create Discovery Collection
+
+### Configure Discovery:
+
+1. Create a set of `.json` files that Discovery will consume for its collection.   The [node program](./src/read-file.js) converts the `.csv` file to a set of `.json` files in a directory named `manualdocs`.
+
+-  Install [Node.js](https://nodejs.org) (Versions >= 6).
+
+-  In the root directory of your repository, install the dependencies.
+```bash
+npm install
+```
+
+ - Run below command
+ ```bash
+ node read-file.js 
+ ```
+- Verify the [`JSON`](./data/manualdocs) files exists.
+
+2. Programmatically upload the `.json` files into the discovery collection
+
+> ensure you have added your Discovery credentials into a .env file sitting in your root directory of your repo.
+
+```bash
+ npm install python-dotenv
+ npm install ibm-watson
+ node upload-file.js 
+ ```
 
 ## 3. Building and Running
 
