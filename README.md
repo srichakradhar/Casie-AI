@@ -6,6 +6,12 @@
 * Srichakradhar Reddy
 * Rohit Reddy
 
+# Links
+
+* [Demo](https://youtu.be/IPoA1alUIWI)
+* [Watson Unity SDK](https://github.com/IBM/unity-sdk)
+* [Unity Core SDK](https://github.com/IBM/unity-sdk-core)
+
 ## Flow
 * User interacts in augmented reality and gives voice commands such as "Walk Forward".
 * The phone microphone picks up the voice command and the running application sends it to Watson Speech-to-Text.
@@ -115,13 +121,6 @@ Build steps for Android have been tested with Pie on a Pixel 2 device with Andro
 3. When prompted you can name your build.
 4. When the build is completed, install the APK on your emulator or device.
 5. Open the app to run.
-
-
-# Links
-
-* [Demo](https://youtu.be/IPoA1alUIWI)
-* [Watson Unity SDK](https://github.com/IBM/unity-sdk)
-* [Unity Core SDK](https://github.com/IBM/unity-sdk-core)
 
 # Troubleshooting
 
