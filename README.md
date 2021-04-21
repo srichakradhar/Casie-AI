@@ -29,16 +29,13 @@ It is the year 2020 and students are experiencing a new way of life when it come
 
 Using Watson Assistant, this pattern defines a dialog that a student and a course provider might experience as a student searches for learning content. Students can input grade-level and academic topics question, and the chatbot responds with course recommendations and learning content links. The conversation responses are further enhanced by using Watson Discovery and the Watson Assistant Search skill. Natural Language Understanding (NLU) is introduced in this pattern to complement Watson Discovery's accuracy by extracting custom fields for entities, concepts, and categories.
 
-# Steps
-
-1. [Prerequisites](#1-before-you-begin)
-2. [IBM Cloud services](#2-create-ibm-cloud-services)
-3. [Building and Running](#3-building-and-running)
-
 ## 1. Pre-requisites
 
 * [IBM Cloud Account](http://ibm.biz/Bdimr6)
 * [Unity](https://unity3d.com/get-unity/download)
+* [Node.js Versions >= 6](https://nodejs.org/): An asynchronous event driven JavaScript runtime, designed to build scalable applications.
+* [Python V3.5+](https://www.python.org/downloads/): Download the latest version of Python
+* [Pandas](https://pandas.pydata.org/): pandas is a fast, powerful, flexible, and easy-to-use open source data analysis and manipulation tool built on top of the Python programming language. 
 
 
 ## 2. IBM Cloud services
@@ -73,12 +70,6 @@ NLU performs text analysis to extract metadata such as concepts, entities, keywo
 3. Programmatially upload .json files into the Discovery Collection
 4. The user interacts through the chatbot via a Watson Assistant Dialog Skill
 5. When the student asks about course information, a search query is issued to the Watson Discovery service through a Watson Assistant search skill. Discovery returns the responses to the dialog
-
-## Featured technologies
-
-* [Node.js Versions >= 6](https://nodejs.org/): An asynchronous event driven JavaScript runtime, designed to build scalable applications.
-* [Python V3.5+](https://www.python.org/downloads/): Download the latest version of Python
-* [Pandas](https://pandas.pydata.org/): pandas is a fast, powerful, flexible, and easy-to-use open source data analysis and manipulation tool built on top of the Python programming language. 
 
 
 ## 3. Configure Watson NLU
