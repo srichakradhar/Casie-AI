@@ -12,6 +12,9 @@
 * [Watson Unity SDK](https://github.com/IBM/unity-sdk)
 * [Unity Core SDK](https://github.com/IBM/unity-sdk-core)
 
+# Sneak Peek
+![Casie](application.png)
+
 ## Flow
 * User interacts in augmented reality and gives voice commands such as "Walk Forward".
 * The phone microphone picks up the voice command and the running application sends it to Watson Speech-to-Text.
